@@ -207,7 +207,7 @@
       <div class="card">
         <h2 class="md-typescale-headline-medium">核心功能与原理</h2>
         <ul class="md-typescale-body-medium">
-          <li>运行时重定义：通过 `a.a` 热替换类字节码。</li>
+          <li>运行时重定义：通过 `NativeUtil` 热替换类字节码。</li>
           <li>注解驱动：使用 `@Inject(method, desc)` 声明目标方法与描述符。</li>
           <li>ASM Tree API：以 `ClassNode`/`MethodNode` 操作字节码对象树。</li>
           <li>动态混淆映射：`MappingUtils.get(...)` 适配版本与混淆名。</li>
@@ -457,9 +457,7 @@ public final class ExampleHooks {
   transformer.addTransformer(new CameraTransformer());
   /* ... 其他变形金刚 ... */
   System.load(resourcesPath+"/native_utils.dll");
-  for(var t : transformer.transformers) a.a(t.getTarget());
-  var map = transformer.transform();
-  for(var e : map.entrySet()) a.a(Class.forName(e.getKey()), e.getValue());
+
 }</code></pre>
         <div class="section-actions">
           <md-filled-button onclick="location.hash='advanced'">调试与日志</md-filled-button>
@@ -513,7 +511,7 @@ public void ensureRunningOnSameThread(MethodNode n){
         <div class="card">
           <h3 class="md-typescale-title-medium">常见问题排查</h3>
           <ul class="md-typescale-body-medium">
-            <li>类未重写：确认 `a.a` 成功与类名匹配。</li>
+            <li>类未重写：确认 NativeUtil 成功与类名匹配。</li>
             <li>崩溃/栈异常：检查指令栈平衡与 `maxLocals` 索引。</li>
             <li>注入失效：检查映射 `MappingUtils.get(...)` 的版本一致性。</li>
           </ul>
@@ -537,7 +535,7 @@ public void ensureRunningOnSameThread(MethodNode n){
             <h4 class="md-typescale-title-small">Transformer 管线</h4>
             <pre class="mono"><code class="language-java">public Map<String,byte[]> transform(){
   for(var t:transformers){
-    var bytes = a.getClassesBytes(t.getTarget());
+    var bytes = a.b(t.getTarget());
     var node = ASMUtils.node(bytes);
     for(var m: t.getClass().getDeclaredMethods()){
       var ann = m.getAnnotation(ASMTransformer.Inject.class);
