@@ -194,7 +194,7 @@
     <div class="container">
       <md-tabs>
         <md-primary-tab data-target="overview">框架概述</md-primary-tab>
-        <md-primary-tab data-target="guide">变换器开发指南</md-primary-tab>
+        <md-primary-tab data-target="guide">变形金刚开发指南</md-primary-tab>
         <md-primary-tab data-target="usage">框架使用教程</md-primary-tab>
         <md-primary-tab data-target="advanced">高级主题</md-primary-tab>
         <md-primary-tab data-target="api">API 参考与案例</md-primary-tab>
@@ -239,7 +239,7 @@
 
     <section id="guide">
       <div class="card">
-        <h2 class="md-typescale-headline-medium">变换器模板</h2>
+        <h2 class="md-typescale-headline-medium">变形金刚模板</h2>
         <pre class="mono"><code class="language-java">// 通用模板
 public class ExampleTransformer extends ASMTransformer {
   public ExampleTransformer() { super(TargetClass.class); }
@@ -448,14 +448,14 @@ public final class ExampleHooks {
         <ol class="md-typescale-body-medium">
           <li>添加 ASM 依赖并确保 `native_utils.dll` 可用。</li>
           <li>应用启动时调用 `TransformerManager.init()` 完成注册与重定义。</li>
-          <li>在 `TransformerManager` 中通过 `transformer.addTransformer(...)` 注册变换器。</li>
+          <li>在 `TransformerManager` 中通过 `transformer.addTransformer(...)` 注册变形金刚。</li>
         </ol>
         <pre class="mono"><code class="language-java">public static void init(){
   if(loaded) return; loaded = true;
   transformer = new Transformer();
   transformer.addTransformer(new LocalPlayerTransformer());
   transformer.addTransformer(new CameraTransformer());
-  /* ... 其他变换器 ... */
+  /* ... 其他变形金刚 ... */
   System.load(resourcesPath+"/native_utils.dll");
   for(var t : transformer.transformers) a.a(t.getTarget());
   var map = transformer.transform();
